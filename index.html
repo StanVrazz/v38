@@ -844,8 +844,10 @@ html,body,#root{background:var(--iron-black)!important}
 #zdv23-exercise-modal .zdv23-media{
   width:100%;aspect-ratio:1;background:#000;border-radius:10px;overflow:hidden;
   display:flex;align-items:center;justify-content:center;margin-bottom:16px;
+  touch-action:pan-y;user-select:none;position:relative;
 }
-#zdv23-exercise-modal .zdv23-media img,#zdv23-exercise-modal .zdv23-media video{width:100%;height:100%;object-fit:contain;}
+#zdv23-exercise-modal .zdv23-media img,#zdv23-exercise-modal .zdv23-media video{width:100%;height:100%;object-fit:contain;transition:opacity .12s ease;}
+#zdv23-exercise-modal .zdv23-hint{position:absolute;bottom:6px;left:0;right:0;text-align:center;font-size:11px;color:#6b7075;letter-spacing:.04em;}
 #zdv23-exercise-modal .zdv23-name{font-size:19px;font-weight:800;color:#f2f3f4;margin-bottom:4px;}
 #zdv23-exercise-modal .zdv23-meta{font-size:12px;font-weight:700;letter-spacing:.06em;color:#e0464c;text-transform:uppercase;margin-bottom:12px;}
 #zdv23-exercise-modal .zdv23-desc{font-size:14px;line-height:1.5;color:#b8bcc1;margin-bottom:20px;}
@@ -868,33 +870,71 @@ html,body,#root{background:var(--iron-black)!important}
      — nothing else in this script needs to change. Until an id has an entry,
      the modal falls back to that exercise's existing (abstract) card thumbnail. */
   const builtInDetailMedia={m10:"./images/assisted-pull-up-detail.mp4",m01:"./images/gdb-m01.gif",m02:"./images/gdb-m02.gif",m03:"./images/gdb-m03.gif",m04:"./images/gdb-m04.gif",m05:"./images/gdb-m05.gif",m06:"./images/gdb-m06.gif",m07:"./images/gdb-m07.gif",m08:"./images/gdb-m08.gif",m09:"./images/gdb-m09.gif",m11:"./images/gdb-m11.gif",m13:"./images/gdb-m13.gif",m14:"./images/gdb-m14.gif",m16:"./images/gdb-m16.gif",m17:"./images/gdb-m17.gif",m18:"./images/gdb-m18.gif",m20:"./images/gdb-m20.gif",m22:"./images/gdb-m22.gif",m24:"./images/gdb-m24.gif",m25:"./images/gdb-m25.gif",m26:"./images/gdb-m26.gif",m27:"./images/gdb-m27.gif",m28:"./images/gdb-m28.gif",m29:"./images/gdb-m29.gif",m30:"./images/gdb-m30.gif",m31:"./images/gdb-m31.gif",m32:"./images/gdb-m32.gif",m33:"./images/gdb-m33.gif",m34:"./images/gdb-m34.gif",m35:"./images/gdb-m35.gif",m36:"./images/gdb-m36.gif",m37:"./images/gdb-m37.gif",m38:"./images/gdb-m38.gif",m40:"./images/gdb-m40.gif",m41:"./images/gdb-m41.gif",m42:"./images/gdb-m42.gif",m43:"./images/gdb-m43.gif",m46:"./images/gdb-m46.gif",m47:"./images/gdb-m47.gif",m48:"./images/gdb-m48.gif",m49:"./images/gdb-m49.gif",m50:"./images/gdb-m50.gif",f01:"./images/gdb-f01.gif",f02:"./images/gdb-f02.gif",f03:"./images/gdb-f03.gif",f04:"./images/gdb-f04.gif",f05:"./images/gdb-f05.gif",f06:"./images/gdb-f06.gif",f08:"./images/gdb-f08.gif",f09:"./images/gdb-f09.gif",f10:"./images/gdb-f10.gif",f11:"./images/gdb-f11.gif",f12:"./images/gdb-f12.gif",f13:"./images/gdb-f13.gif",f14:"./images/gdb-f14.gif",f15:"./images/gdb-f15.gif",f16:"./images/gdb-f16.gif",f17:"./images/gdb-f17.gif",f18:"./images/gdb-f18.gif",f19:"./images/gdb-f19.gif",f20:"./images/gdb-f20.gif",f23:"./images/gdb-f23.gif",f24:"./images/gdb-f24.gif",f25:"./images/gdb-f25.gif",f26:"./images/gdb-f26.gif",f27:"./images/gdb-f27.gif",f29:"./images/gdb-f29.gif",f30:"./images/gdb-f30.gif",f31:"./images/gdb-f31.gif",f32:"./images/gdb-f32.gif",f33:"./images/gdb-f33.gif",f34:"./images/gdb-f34.gif",f35:"./images/gdb-f35.gif",f36:"./images/gdb-f36.gif",f37:"./images/gdb-f37.gif",f38:"./images/gdb-f38.gif",f39:"./images/gdb-f39.gif",f40:"./images/gdb-f40.gif",f41:"./images/gdb-f41.gif",f43:"./images/gdb-f43.gif",f44:"./images/gdb-f44.gif",f45:"./images/gdb-f45.gif",f47:"./images/gdb-f47.gif",f49:"./images/gdb-f49.gif",f50:"./images/gdb-f50.gif",f51:"./images/gdb-f51.gif",f52:"./images/gdb-f52.gif",f53:"./images/gdb-f53.gif",f54:"./images/gdb-f54.gif",f55:"./images/gdb-f55.gif",f59:"./images/gdb-f59.gif",f60:"./images/gdb-f60.gif",f61:"./images/gdb-f61.gif",f64:"./images/gdb-f64.gif",f65:"./images/gdb-f65.gif",f66:"./images/gdb-f66.gif",f67:"./images/gdb-f67.gif",f68:"./images/gdb-f68.gif",f69:"./images/gdb-f69.gif",f70:"./images/gdb-f70.gif",f73:"./images/gdb-f73.gif",f74:"./images/gdb-f74.gif",f76:"./images/gdb-f76.gif",f77:"./images/gdb-f77.gif",f78:"./images/gdb-f78.gif",f79:"./images/gdb-f79.gif",f80:"./images/gdb-f80.gif",f82:"./images/gdb-f82.gif",f83:"./images/gdb-f83.gif",f85:"./images/gdb-f85.gif",f86:"./images/gdb-f86.gif",f87:"./images/gdb-f87.gif",f88:"./images/gdb-f88.gif",f90:"./images/gdb-f90.gif",f91:"./images/gdb-f91.gif",f93:"./images/gdb-f93.gif",f95:"./images/gdb-f95.gif",f96:"./images/gdb-f96.gif",f100:"./images/gdb-f100.gif"};
+  let currentCard=null;
+  function siblingCards(card){
+    const parent=card.parentElement;
+    if(!parent)return [];
+    return Array.from(parent.querySelectorAll(':scope > .kt-exercise-card'));
+  }
+  function openRelative(dir){
+    if(!currentCard)return;
+    const list=siblingCards(currentCard);
+    const idx=list.indexOf(currentCard);
+    if(idx===-1)return;
+    const nextIdx=idx+dir;
+    if(nextIdx<0||nextIdx>=list.length)return;
+    open(list[nextIdx],true);
+  }
+  let swipeX=null,swipeY=null,swiping=false;
+  function attachSwipe(media){
+    media.addEventListener('pointerdown',function(e){
+      if(e.target.closest('button'))return;
+      swipeX=e.clientX;swipeY=e.clientY;swiping=true;
+    });
+    media.addEventListener('pointerup',function(e){
+      if(!swiping||swipeX===null){swiping=false;return;}
+      const dx=e.clientX-swipeX,dy=e.clientY-swipeY;
+      swiping=false;swipeX=null;
+      if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)*1.5)openRelative(dx<0?1:-1);
+    });
+    media.addEventListener('pointercancel',function(){swiping=false;swipeX=null;});
+  }
   function buildModal(){
     let el=document.getElementById('zdv23-exercise-modal');
     if(el)return el;
     el=document.createElement('div');
     el.id='zdv23-exercise-modal';
-    el.innerHTML='<div class="zdv23-backdrop"></div><div class="zdv23-panel"><div class="zdv23-handle"></div><button class="zdv23-close" aria-label="Zatvori">&times;</button><div class="zdv23-media"><video muted loop playsinline style="display:none"></video><img alt=""/></div><div class="zdv23-name"></div><div class="zdv23-meta"></div><div class="zdv23-desc"></div><button class="zdv23-change-img">Promijeni sliku</button></div>';
+    el.innerHTML='<div class="zdv23-backdrop"></div><div class="zdv23-panel"><div class="zdv23-handle"></div><button class="zdv23-close" aria-label="Zatvori">&times;</button><div class="zdv23-media"><video muted loop playsinline style="display:none"></video><img alt=""/><div class="zdv23-hint"></div></div><div class="zdv23-name"></div><div class="zdv23-meta"></div><div class="zdv23-desc"></div><button class="zdv23-change-img">Promijeni sliku</button></div>';
     document.body.appendChild(el);
     el.querySelector('.zdv23-backdrop').addEventListener('click',close);
     el.querySelector('.zdv23-close').addEventListener('click',close);
+    attachSwipe(el.querySelector('.zdv23-media'));
     return el;
   }
   function close(){
     const el=document.getElementById('zdv23-exercise-modal');
     if(el)el.classList.remove('zdv23-open');
   }
-  function open(card){
+  function open(card,fromSwipe){
     const el=buildModal();
+    currentCard=card;
     const exId=card.dataset.exerciseId||'';
     const isCustom=exId.indexOf('c-')===0;
     el.querySelector('.zdv23-name').textContent=card.querySelector('.kt-exercise-card-name')?.textContent||'';
     el.querySelector('.zdv23-meta').textContent=card.querySelector('.kt-exercise-card-meta')?.textContent||'';
     el.querySelector('.zdv23-desc').textContent=card.querySelector('.kt-exercise-card-desc')?.textContent||'';
 
+    const list=siblingCards(card);
+    const pos=list.indexOf(card);
+    const hint=el.querySelector('.zdv23-hint');
+    if(hint)hint.textContent=list.length>1?(pos+1)+' / '+list.length:'';
+
     const img=el.querySelector('.zdv23-media img');
     const vid=el.querySelector('.zdv23-media video');
     const detail=builtInDetailMedia[exId];
     const thumbSrc=card.querySelector('.kt-exercise-card-img')?.src||'';
+    const media=el.querySelector('.zdv23-media');
+    if(fromSwipe&&media){media.style.opacity='0.35';setTimeout(function(){media.style.opacity='1';},120);}
     if(detail&&/\.(mp4|webm)$/i.test(detail)){
       vid.src=detail; vid.style.display=''; vid.play&&vid.play().catch(()=>{});
       img.style.display='none';
