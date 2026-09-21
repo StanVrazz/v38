@@ -21,6 +21,16 @@
   src:url(./fonts/special-elite-latin-400-normal.woff2) format('woff2');
   unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
 }
+@font-face{
+  font-family:'Courier Prime';font-style:normal;font-display:swap;font-weight:400;
+  src:url(./fonts/courier-prime-latin-ext-400-normal.woff2) format('woff2');
+  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+@font-face{
+  font-family:'Courier Prime';font-style:normal;font-display:swap;font-weight:400;
+  src:url(./fonts/courier-prime-latin-400-normal.woff2) format('woff2');
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
   html, body { margin:0; padding:0; background:#1B1D21; }
   #root { min-height: 100vh; }
 </style>
@@ -81,7 +91,7 @@ body{font-family:'Special Elite','Courier New',monospace;overflow-x:hidden}
  .kt-header{height:76px!important;min-height:76px!important}
  .kt-title{font-size:26px!important}
  #zdv9-bottom-nav button{font-size:12px!important}
- #zdv9-bottom-nav button .bn-icon{font-size:25px!important;line-height:25px!important;margin-bottom:6px!important}
+ #zdv9-bottom-nav button .bn-icon svg{width:29px!important;height:29px!important}#zdv9-bottom-nav button .bn-icon{margin-bottom:6px!important}
 }
 @media(max-width:370px){.kt-title{font-size:23px!important}}
 </style>
@@ -126,6 +136,7 @@ function ui({exercise:e,image:t,size:n,interactive:r,removable:l,onClick:i,onRem
   --danger: #B85C4A;
   --font-sans: 'Special Elite', 'Courier New', monospace;
   --font-mono: ui-monospace, 'SF Mono', 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+  --font-explain: 'Courier Prime', 'Courier New', monospace;
   background: var(--bg);
   color: var(--chalk);
   font-family: var(--font-sans);
@@ -159,6 +170,7 @@ function ui({exercise:e,image:t,size:n,interactive:r,removable:l,onClick:i,onRem
   padding: 10px 12px; border-radius: 3px; font-family: var(--font-mono); font-size: 14px;
 }
 .kt-picker-input { font-family: var(--font-sans); padding-right: 34px; }
+.kt-picker-input::placeholder { font-family: var(--font-explain); opacity: 0.65; }
 .kt-date-input::-webkit-calendar-picker-indicator { filter: invert(0.7); cursor: pointer; }
 
 .kt-picker { position: relative; }
@@ -222,7 +234,7 @@ function ui({exercise:e,image:t,size:n,interactive:r,removable:l,onClick:i,onRem
 .kt-history-exercise-name { font-size: 14px; font-weight: 500; }
 .kt-history-sets { font-family: var(--font-mono); font-size: 13px; color: var(--muted); margin-left: 34px; }
 .kt-history-comment { margin-top: 6px; margin-left: 34px; color: var(--chalk); font-size: 13px; line-height: 1.45; white-space: pre-wrap; }
-.kt-comment-input { width: 100%; box-sizing: border-box; resize: vertical; min-height: 72px; line-height: 1.45; }
+.kt-comment-input { width: 100%; box-sizing: border-box; resize: vertical; min-height: 72px; line-height: 1.45; font-family: var(--font-explain); }
 .kt-history-delete { background: none; border: none; color: var(--muted); cursor: pointer; padding: 3px; display: flex; flex-shrink: 0; }
 .kt-history-delete:hover { color: var(--danger); }
 .kt-confirm-row { display: flex; gap: 8px; align-items: center; flex-shrink: 0; }
@@ -547,9 +559,12 @@ html,body,#root{background:var(--iron-black)!important}
  .kt-tabs{display:none!important}
  #zdv9-bottom-nav{position:fixed;left:0;right:0;bottom:0;z-index:200;display:grid;grid-template-columns:repeat(5,1fr);gap:3px;padding:7px 7px calc(7px + env(safe-area-inset-bottom));background:rgba(6,7,8,.97);border-top:1px solid #2a2d31;box-shadow:0 -12px 35px rgba(0,0,0,.42);backdrop-filter:blur(14px)}
  #zdv9-bottom-nav button{appearance:none;border:1px solid transparent;background:transparent;color:#777c83;border-radius:8px;padding:8px 3px 7px;font-size:9px;font-weight:900;letter-spacing:.045em;text-transform:uppercase;min-width:0}
- #zdv9-bottom-nav button .bn-icon{display:block;font-size:17px;line-height:16px;margin-bottom:4px;color:#a5a9ae}
+ #zdv9-bottom-nav button .bn-icon{display:flex;align-items:center;justify-content:center;margin-bottom:4px;color:#a5a9ae}
+ #zdv9-bottom-nav button .bn-icon svg{width:20px;height:20px;display:block}
+ #zdv9-bottom-nav button .bn-icon-more{font-size:17px;line-height:16px;letter-spacing:.06em}
  #zdv9-bottom-nav button.active{color:#fff;background:linear-gradient(180deg,#d91920,#b40d13);border-color:#f0343a;box-shadow:0 0 18px rgba(237,28,36,.2)}
  #zdv9-bottom-nav button.active .bn-icon{color:#fff}
+ #zdv9-bottom-nav button.bn-overflow-item{display:none}
  #zdv9-more{position:fixed;left:12px;right:12px;bottom:82px;z-index:201;background:#101214;border:1px solid #363b41;border-radius:13px;padding:8px;box-shadow:0 20px 60px rgba(0,0,0,.65);display:none}
  #zdv9-more.open{display:block}
  #zdv9-more button{display:block;width:100%;padding:13px;border:0;border-bottom:1px solid #252a2f;background:transparent;color:#eee;text-align:left;font-weight:850;font-size:12px;text-transform:uppercase;letter-spacing:.07em}
@@ -557,6 +572,13 @@ html,body,#root{background:var(--iron-black)!important}
  .kt-main{padding-bottom:105px!important}
  .kt-title{font-size:19px!important}
  .kt-date{display:none!important}
+}
+/* V25: dovoljno vodoravnog prostora (pejzaž na telefonu) - prikazi svih 6
+   izravno u traci, bez "Više" pretinca. */
+@media (min-width:600px) and (max-height:700px){
+ #zdv9-bottom-nav{grid-template-columns:repeat(6,1fr)!important}
+ #zdv9-bottom-nav button.bn-overflow-item{display:flex!important;flex-direction:column;align-items:center;justify-content:center}
+ #zdv9-bottom-nav button.bn-more-trigger{display:none!important}
 }
 </style>
 <script>
@@ -569,10 +591,11 @@ html,body,#root{background:var(--iron-black)!important}
     const btns=[...tabs.querySelectorAll('.kt-tab')];
     if(btns.length<6) return;
     const nav=document.createElement('nav'); nav.id='zdv9-bottom-nav'; nav.setAttribute('aria-label','Glavna navigacija');
-    const specs=[['log','⚒','Trening',0],['history','◷','Povijest',1],['progress','↗','Progres',2],['library','◈','Vježbe',3],['more','•••','Više',-1]];
+    const ICONS={"log": "<svg viewBox=\"0 0 24 24\" width=\"1em\" height=\"1em\" fill=\"none\"><rect x=\"1\" y=\"8\" width=\"4\" height=\"8\" rx=\"1.3\" fill=\"currentColor\"/><rect x=\"19\" y=\"8\" width=\"4\" height=\"8\" rx=\"1.3\" fill=\"currentColor\"/><rect x=\"5\" y=\"10.6\" width=\"14\" height=\"2.8\" rx=\"1\" fill=\"currentColor\"/></svg>", "history": "<svg viewBox=\"0 0 24 24\" width=\"1em\" height=\"1em\" fill=\"none\"><circle cx=\"12\" cy=\"12\" r=\"9\" stroke=\"currentColor\" stroke-width=\"2\"/><path d=\"M12 7v5l4 2\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>", "progress": "<svg viewBox=\"0 0 24 24\" width=\"1em\" height=\"1em\" fill=\"none\"><path d=\"M4 20v-5M9 20v-9M14 20v-13\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linecap=\"round\"/><path d=\"M13 4h6v6\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M19 4l-7 7\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\"/></svg>", "library": "<svg viewBox=\"0 0 24 24\" width=\"1em\" height=\"1em\" fill=\"none\"><rect x=\"5\" y=\"4\" width=\"14\" height=\"17\" rx=\"2\" stroke=\"currentColor\" stroke-width=\"2\"/><rect x=\"9\" y=\"2\" width=\"6\" height=\"4\" rx=\"1.4\" fill=\"currentColor\"/><path d=\"M8 10h8M8 14h8M8 18h5\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\"/></svg>", "gym": "<svg viewBox=\"0 0 24 24\" width=\"1em\" height=\"1em\" fill=\"none\"><path d=\"M3 11l9-7 9 7\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M5 10v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-9\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><rect x=\"8\" y=\"14\" width=\"2.2\" height=\"4.2\" rx=\"0.8\" fill=\"currentColor\"/><rect x=\"13.8\" y=\"14\" width=\"2.2\" height=\"4.2\" rx=\"0.8\" fill=\"currentColor\"/><path d=\"M10.2 16.1h3.6\" stroke=\"currentColor\" stroke-width=\"1.8\"/></svg>", "backup": "<svg viewBox=\"0 0 24 24\" width=\"1em\" height=\"1em\" fill=\"none\"><path d=\"M7 18a4 4 0 0 1-.5-7.97A5 5 0 0 1 16.9 9 4.5 4.5 0 0 1 17 18H7z\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\"/><path d=\"M12 17v-7M9 13l3-3 3 3\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>"};
+    const specs=[['log','Trening',0],['history','Povijest',1],['progress','Progres',2],['library','Vježbe',3],['gym','Moja teretana',4],['backup','Sigurnosna kopija',5],['more','Više',-1]];
     const more=document.createElement('div'); more.id='zdv9-more';
     [[4,'Moja teretana'],[5,'Sigurnosna kopija']].forEach(([i,label])=>{const b=document.createElement('button');b.textContent=label;b.addEventListener('click',()=>{btns[i].click();more.classList.remove('open');sync()});more.appendChild(b)});
-    specs.forEach(([key,icon,label,i])=>{const b=document.createElement('button');b.dataset.key=key;b.innerHTML='<span class="bn-icon">'+icon+'</span>'+label;b.addEventListener('click',()=>{if(key==='more'){more.classList.toggle('open');return}btns[i].click();more.classList.remove('open');setTimeout(sync,0)});nav.appendChild(b)});
+    specs.forEach(([key,label,i])=>{const b=document.createElement('button');b.dataset.key=key;const icon=key==='more'?'<span class="bn-icon bn-icon-more">&bull;&bull;&bull;</span>':'<span class="bn-icon">'+ICONS[key]+'</span>';b.innerHTML=icon+label;if(key==='gym'||key==='backup')b.classList.add('bn-overflow-item');if(key==='more')b.classList.add('bn-more-trigger');b.addEventListener('click',()=>{if(key==='more'){more.classList.toggle('open');return}btns[i].click();more.classList.remove('open');setTimeout(sync,0)});nav.appendChild(b)});
     document.body.appendChild(nav); document.body.appendChild(more);
     function sync(){btns.forEach((x,i)=>{const a=x.classList.contains('active');const target=nav.querySelectorAll('button')[i];if(target)target.classList.toggle('active',a)});}
     new MutationObserver(sync).observe(tabs,{subtree:true,attributes:true,attributeFilter:['class']}); sync();
@@ -595,7 +618,7 @@ html,body,#root{background:var(--iron-black)!important}
  .kt-title{font-size:24px!important}
  #zdv9-bottom-nav{padding:7px 7px calc(8px + env(safe-area-inset-bottom))!important}
  #zdv9-bottom-nav button{padding:8px 2px 8px!important;font-size:11px!important;letter-spacing:.035em!important}
- #zdv9-bottom-nav button .bn-icon{font-size:25px!important;line-height:25px!important;margin-bottom:6px!important}
+ #zdv9-bottom-nav button .bn-icon svg{width:29px!important;height:29px!important}#zdv9-bottom-nav button .bn-icon{margin-bottom:6px!important}
  #zdv9-bottom-nav button.active{border-radius:9px!important}
  .kt-main{padding-bottom:112px!important}
 }
@@ -663,9 +686,8 @@ html,body,#root{background:var(--iron-black)!important}
     if(!nav||a.length<6)return;
     const bs=[...nav.querySelectorAll('button')];
     const active=a.findIndex(b=>b.classList.contains('active'));
-    const wantIdx = active>=0&&active<4 ? active : (active>=4 ? 4 : -1);
     bs.forEach((b,i)=>{
-      const want = i===wantIdx;
+      const want = i<6 ? (i===active) : (active>=4);
       if(b.classList.contains('active')!==want) b.classList.toggle('active',want);
     });
   }
@@ -770,7 +792,7 @@ html,body,#root{background:var(--iron-black)!important}
 .kt-history-date,.kt-library-heading{font-size:14px!important}
 .kt-history-exercise-name{font-size:15px!important}
 #zdv9-bottom-nav button{font-size:11px!important}
-#zdv9-bottom-nav button .bn-icon{font-size:25px!important;line-height:25px!important}
+#zdv9-bottom-nav button .bn-icon svg{width:29px!important;height:29px!important}
 /* V13: use the sharper plate photo and pull it further onto screen so "20K"
    (and as much of the following letter as the source photo actually has)
    is visible, instead of being cropped down to just "20". */
@@ -861,7 +883,7 @@ html,body,#root{background:var(--iron-black)!important}
 #zdv23-exercise-modal .zdv23-hint{position:absolute;bottom:6px;left:0;right:0;text-align:center;font-size:11px;color:#6b7075;letter-spacing:.04em;}
 #zdv23-exercise-modal .zdv23-name{font-size:19px;font-weight:800;color:#f2f3f4;margin-bottom:4px;}
 #zdv23-exercise-modal .zdv23-meta{font-size:12px;font-weight:700;letter-spacing:.06em;color:#e0464c;text-transform:uppercase;margin-bottom:12px;}
-#zdv23-exercise-modal .zdv23-desc{font-size:14px;line-height:1.5;color:#b8bcc1;margin-bottom:20px;}
+#zdv23-exercise-modal .zdv23-desc{font-size:14px;line-height:1.5;color:#b8bcc1;margin-bottom:20px;font-family:var(--font-explain);}
 #zdv23-exercise-modal .zdv23-change-img{
   width:100%;height:46px;border-radius:9px;border:1px solid #363b41;background:#1a1d22;
   color:#c7cbd1;font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;
@@ -974,6 +996,59 @@ html,body,#root{background:var(--iron-black)!important}
     e.stopPropagation();
     open(card);
   },true);
+})();
+</script>
+<script>
+/* V24: prilagodjeni padajuci popis za sve select.kt-picker-input elemente,
+   umjesto zadanog izgleda preglednika na mobitelu. */
+(function(){
+  let popup=null, activeSelect=null;
+  function closePopup(){
+    if(popup){popup.remove();popup=null;}
+    activeSelect=null;
+  }
+  function openPopup(select){
+    if(activeSelect===select){closePopup();return;}
+    closePopup();
+    const rect=select.getBoundingClientRect();
+    popup=document.createElement('div');
+    popup.className='kt-picker-dropdown';
+    popup.style.position='fixed';
+    popup.style.top=(rect.bottom+4)+'px';
+    popup.style.left=rect.left+'px';
+    popup.style.width=Math.max(rect.width,160)+'px';
+    popup.style.zIndex='99999';
+    popup.style.maxHeight='min(50vh,340px)';
+    popup.style.overflowY='auto';
+    const opts=Array.from(select.querySelectorAll('option'));
+    const valueSetter=Object.getOwnPropertyDescriptor(window.HTMLSelectElement.prototype,'value').set;
+    opts.forEach(function(opt){
+      const item=document.createElement('div');
+      item.className='kt-picker-item';
+      item.textContent=opt.textContent;
+      if(opt.value===select.value)item.style.color='var(--brass)';
+      item.addEventListener('click',function(e){
+        e.stopPropagation();
+        valueSetter.call(select,opt.value);
+        select.dispatchEvent(new Event('change',{bubbles:true}));
+        closePopup();
+      });
+      popup.appendChild(item);
+    });
+    document.body.appendChild(popup);
+    activeSelect=select;
+  }
+  document.addEventListener('mousedown',function(e){
+    const sel=e.target.closest?e.target.closest('select.kt-picker-input'):null;
+    if(sel){
+      e.preventDefault();
+      openPopup(sel);
+      return;
+    }
+    if(popup && !popup.contains(e.target))closePopup();
+  },true);
+  window.addEventListener('resize',closePopup);
+  window.addEventListener('scroll',closePopup,true);
 })();
 </script>
 </body>
