@@ -1055,54 +1055,43 @@ html,body,#root{background:var(--iron-black)!important}
 
 
 
+
+
 <style id="zdv26-bodymap-style">
-.bm-wrap{margin-top:14px;background:#14161a;border:1px solid #2a2d31;border-radius:12px;padding:12px}
-.bm-toggle{display:flex;gap:6px;margin-bottom:8px}
-.bm-toggle button{flex:1;padding:8px;border-radius:8px;border:1px solid #2a2d31;background:#1c1f23;color:#9aa0a6;font-weight:800;font-size:11px;text-transform:uppercase;letter-spacing:.05em}
-.bm-toggle button.on{background:linear-gradient(180deg,#d9b36c,#b5894a);color:#1B1D21;border-color:#e8c077}
-.bm-svgwrap{display:flex;justify-content:center}
-.bm-svgwrap svg{width:170px;height:auto}
-.bm-region{cursor:pointer;transition:fill .12s ease;fill:#ffffff;fill-opacity:0.045;stroke:none}
-.bm-region:hover{fill-opacity:0.18}
-.bm-region.bm-active{fill:#C9A15A!important;fill-opacity:0.42!important;stroke:#E8C077!important;stroke-width:2!important}
-.bm-hint{text-align:center;font-size:11px;color:#6b7075;margin-top:8px}
+.bm-wrap{margin:14px -6px 0;padding:8px 0 10px;background:#101214;border:1px solid #23262a;border-radius:12px}
+.bm-svgwrap{max-width:560px;margin:0 auto}
+.bm-svgwrap svg{display:block;width:100%;height:auto;-webkit-tap-highlight-color:transparent;user-select:none}
+.bm-svgwrap svg image{transition:opacity .15s ease}
+.bm-svgwrap svg.has-active image{opacity:.72}
+.bm-region{fill:#ff2b2b;fill-opacity:0;stroke:none;cursor:pointer;transition:fill-opacity .12s ease}
+@media (hover:hover){.bm-region:hover{fill-opacity:.2}}
+.bm-region.bm-active{fill-opacity:.7!important;stroke:#ff7a7a;stroke-width:2.4;stroke-linejoin:round;filter:drop-shadow(0 0 6px rgba(255,43,43,.9))}
+.bm-captions{display:flex;max-width:560px;margin:2px auto 0}
+.bm-captions span{flex:1;text-align:center;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#6f757b}
+.bm-hint{text-align:center;font-size:12px;color:#8a8f94;margin-top:8px;padding:0 10px}
+.bm-hint b{color:#ff5a5f;font-weight:700}
 </style>
 
 <script>
 (function(){
-  const FRONT_SVG = "<svg viewBox=\"0 0 849 926\" xmlns=\"http://www.w3.org/2000/svg\"><image href=\"./images/front-muscle-map.png\" x=\"0\" y=\"0\" width=\"849\" height=\"926\"/><polygon class=\"bm-region\" data-m=\"Vrat\" points=\"362,98 438,98 428,148 372,148\"/><polygon class=\"bm-region\" data-m=\"Ramena\" points=\"220,170 295,163 300,215 270,258 223,252 208,208\"/><polygon class=\"bm-region\" data-m=\"Ramena\" points=\"580,170 505,163 500,215 530,258 577,252 592,208\"/><polygon class=\"bm-region\" data-m=\"Prsa\" points=\"302,195 400,176 498,195 502,296 400,282 298,296\"/><polygon class=\"bm-region\" data-m=\"Stomak\" points=\"338,298 400,304 462,298 455,450 400,462 345,450\"/><polygon class=\"bm-region\" data-m=\"Biceps\" points=\"228,258 288,253 282,392 237,397\"/><polygon class=\"bm-region\" data-m=\"Biceps\" points=\"572,258 512,253 518,392 563,397\"/><polygon class=\"bm-region\" data-m=\"Podlaktice\" points=\"172,398 222,393 218,455 168,458\"/><polygon class=\"bm-region\" data-m=\"Podlaktice\" points=\"628,398 578,393 582,455 632,458\"/><polygon class=\"bm-region\" data-m=\"Butine\" points=\"278,463 396,463 390,648 283,648\"/><polygon class=\"bm-region\" data-m=\"Butine\" points=\"522,463 404,463 410,648 517,648\"/></svg>";
-  const BACK_SVG = "<svg viewBox=\"0 0 850 926\" xmlns=\"http://www.w3.org/2000/svg\"><image href=\"./images/back-muscle-map.png\" x=\"0\" y=\"0\" width=\"850\" height=\"926\"/><polygon class=\"bm-region\" data-m=\"Vrat\" points=\"380,68 460,68 450,132 390,132\"/><polygon class=\"bm-region\" data-m=\"Ramena\" points=\"270,177 350,170 345,220 312,262 267,252 256,210\"/><polygon class=\"bm-region\" data-m=\"Ramena\" points=\"630,177 550,170 555,220 588,262 633,252 644,210\"/><polygon class=\"bm-region\" data-m=\"Le\u0111a\" points=\"350,150 450,144 550,150 556,290 490,398 410,398 344,290\"/><polygon class=\"bm-region\" data-m=\"Triceps\" points=\"265,260 335,255 330,397 276,400\"/><polygon class=\"bm-region\" data-m=\"Triceps\" points=\"635,260 565,255 570,397 624,400\"/><polygon class=\"bm-region\" data-m=\"Podlaktice\" points=\"262,400 332,397 327,452 258,453\"/><polygon class=\"bm-region\" data-m=\"Podlaktice\" points=\"638,400 568,397 573,452 642,453\"/><polygon class=\"bm-region\" data-m=\"Gluteus\" points=\"362,412 450,406 538,412 534,507 450,520 366,507\"/><polygon class=\"bm-region\" data-m=\"Lo\u017ee\" points=\"330,515 440,510 435,637 335,637\"/><polygon class=\"bm-region\" data-m=\"Lo\u017ee\" points=\"570,515 460,510 465,637 565,637\"/><polygon class=\"bm-region\" data-m=\"Listovi\" points=\"335,650 410,650 405,772 340,772\"/><polygon class=\"bm-region\" data-m=\"Listovi\" points=\"565,650 490,650 495,772 560,772\"/></svg>";
-  let currentView='front';
+  const SVG = "<svg viewBox=\"0 0 1102 906\" xmlns=\"http://www.w3.org/2000/svg\" id=\"bm-svg\"><image href=\"./images/bodymap-both.webp\" x=\"0\" y=\"0\" width=\"1102\" height=\"906\"/><path class=\"bm-region\" data-m=\"Vrat\" data-v=\"front\" d=\"M195 156l2 4l7 1l11 6l19 1l28 6l8 4l8 8l2 0l9 -10l23 -6l30 -3l21 -9l-6 -6l-41 -21l-10 -10l-3 0l-15 11l-18 0l-7 -4l-16 -17l-1 12l-4 7z\"/><path class=\"bm-region\" data-m=\"Ramena\" data-v=\"front\" d=\"M343 168l42 49l3 6l9 4l13 10l3 -1l9 5l2 -1l3 -12l0 -16l-2 -10l-6 -15l-13 -16l-13 -8l-14 -4l-12 -1l-18 6zM214 167l-10 -5l-7 -1l-3 -3l-25 3l-10 4l-9 6l-11 12l-9 20l-2 11l2 26l4 1l8 -5l4 1l11 -9l9 -5l3 0l45 -53z\"/><path class=\"bm-region\" data-m=\"Prsa\" data-v=\"front\" d=\"M171 221l8 10l4 9l12 14l15 10l14 3l15 -1l2 -2l21 -7l10 -6l13 0l13 7l19 6l2 2l22 0l16 -8l16 -16l7 -14l6 -6l-2 -5l-43 -49l-29 3l-23 6l-9 10l-2 0l-11 -10l-8 -3l-25 -5l-17 -1z\"/><path class=\"bm-region\" data-m=\"Biceps\" data-v=\"front\" d=\"M385 224l-4 4l-7 13l0 24l5 22l9 19l17 21l9 2l11 -1l8 -17l0 -12l-5 -16l-11 -26l-9 -16l0 -4l-16 -12zM172 224l-8 1l-16 12l-1 5l-6 9l-10 22l-12 35l5 4l1 7l5 10l13 0l7 -2l14 -15l11 -20l7 -23l1 -28l-5 -10z\"/><path class=\"bm-region\" data-m=\"Triceps\" data-v=\"front\" d=\"M411 237l-2 4l14 27l10 30l8 7l3 0l0 -23l-6 -21l-11 -17zM145 237l-3 0l-14 7l-13 20l-5 21l1 23l5 1l4 -6l10 -30l10 -22l6 -9z\"/><path class=\"bm-region\" data-m=\"Podlaktice\" data-v=\"front\" d=\"M444 310l-5 8l-6 -5l-2 2l-2 9l-4 5l-10 1l-3 7l-5 0l1 17l5 16l12 21l28 28l10 13l3 0l6 -4l0 -5l-12 -23l2 -4l12 13l5 -2l5 10l3 0l2 -2l0 -3l-7 -21l-4 -29l-5 -16l-14 -22l-13 -14zM119 309l-8 0l-17 17l-12 17l-5 12l-4 30l-10 31l3 3l3 0l4 -6l0 -4l8 -1l13 -14l2 4l-13 24l3 4l-2 4l2 5l3 0l16 -19l22 -22l11 -16l8 -20l3 -19l-7 -3l-1 -6l-11 0l-6 -11l-1 -7z\"/><path class=\"bm-region\" data-m=\"Stomak\" data-v=\"front\" d=\"M372 244l-15 15l-16 8l-22 0l-2 -2l-19 -6l-13 -7l-13 0l-22 11l-9 2l-2 2l-11 1l-18 -3l-14 -10l-3 1l4 40l5 4l0 3l-4 7l5 14l0 13l-4 14l0 21l2 10l34 25l6 2l20 30l13 14l7 0l9 -9l24 -33l40 -28l0 -5l3 -8l0 -18l-4 -18l0 -9l5 -11l-1 -7l2 -2l4 2l3 -3l8 -18l3 -3l-4 -18l1 -18z\"/><path class=\"bm-region\" data-m=\"Butine\" data-v=\"front\" d=\"M200 385l-6 12l-3 26l-7 25l3 8l-5 4l-8 18l-7 34l2 40l4 19l11 27l4 3l3 0l8 -9l4 -8l4 -3l3 3l1 6l6 12l10 14l3 0l10 -6l7 -12l5 -14l6 -35l4 -4l8 -28l5 -32l0 -26l3 -2l3 4l0 26l4 28l9 32l4 6l6 33l7 16l7 9l11 5l9 -13l9 -21l3 0l14 19l3 0l5 -6l11 -33l4 -26l0 -22l-4 -25l-6 -19l-5 -11l-5 -4l3 -5l0 -4l-5 -13l-2 -22l-5 -22l-4 -4l-5 2l-35 25l-23 32l-10 10l-4 1l-3 -1l-10 -10l-23 -34l-6 -2l-30 -22z\"/><path class=\"bm-region\" data-m=\"Listovi\" data-v=\"front\" d=\"M376 642l-2 0l-4 6l-43 0l1 9l-7 23l0 34l3 10l15 26l8 43l3 4l5 0l3 -2l16 2l5 -1l0 -8l6 -32l-4 -4l0 -2l5 -3l1 -11l-2 -4l6 -3l4 -15l1 -16l-4 -23l-7 -18zM179 642l-10 19l-6 17l-2 10l0 26l4 16l3 3l1 22l6 29l1 13l3 1l3 -2l14 -1l9 2l3 -4l1 -11l8 -33l11 -17l6 -15l3 -19l-2 -21l-6 -21l0 -8l-43 0l-4 -6z\"/><path class=\"bm-region\" data-m=\"Vrat\" data-v=\"back\" d=\"M742 155l0 2l167 0l-2 -4l-37 -19l-11 -10l-4 -8l-3 -20l-9 -11l-11 -6l-12 0l-10 5l-11 13l-3 18l-5 10l-20 15z\"/><path class=\"bm-region\" data-m=\"Ramena\" data-v=\"back\" d=\"M887 177l2 4l43 38l8 2l14 11l1 8l4 -1l4 -4l3 0l2 2l5 -1l3 -17l-4 -21l-8 -16l-13 -13l-20 -9l-19 -1l-7 6l-9 4zM763 175l-9 -7l-9 -4l-5 -5l-17 0l-8 2l-18 10l-11 12l-9 19l-2 10l0 18l2 7l4 1l8 -3l5 5l2 0l1 -8l9 -8l14 -5l44 -40z\"/><path class=\"bm-region\" data-m=\"Le\u0111a\" data-v=\"back\" d=\"M742 158l3 5l15 8l4 4l1 4l-29 27l-11 8l-4 6l9 13l-1 9l3 17l-2 18l-5 19l3 1l5 6l18 34l-4 15l0 23l2 11l19 12l9 0l6 -2l18 9l21 17l11 -3l16 -14l19 -9l5 2l9 0l3 -3l17 -8l4 -18l0 -11l-2 -12l-4 -7l2 -7l12 -18l4 -10l8 -7l-6 -24l1 -33l-2 -2l0 -3l10 -13l1 -4l-41 -36l-3 -5l10 -9l12 -6l2 -4z\"/><path class=\"bm-region\" data-m=\"Triceps\" data-v=\"back\" d=\"M931 220l-11 15l0 3l2 2l0 39l5 16l9 16l18 19l3 1l7 -13l4 -4l6 0l6 -7l3 -1l5 3l3 -1l2 -4l0 -17l-2 -12l-9 -22l-12 -15l-7 -2l-4 4l-4 1l-2 -2l0 -7l-13 -10zM720 220l-14 5l-7 6l-1 8l-2 2l-2 0l-5 -5l-10 3l-13 18l-7 18l-2 17l0 12l2 4l4 1l5 6l16 -1l10 17l2 0l14 -14l9 -13l5 -10l5 -17l2 -14l-1 -15l-2 -6l1 -9z\"/><path class=\"bm-region\" data-m=\"Podlaktice\" data-v=\"back\" d=\"M684 315l-16 1l-5 -6l-4 0l-15 14l-10 13l-9 20l-3 17l-1 17l9 4l0 4l-8 7l0 10l2 4l8 3l5 0l5 -4l16 -6l18 -20l9 -13l9 -19l4 -18l-2 -7zM983 307l-3 1l-6 7l-6 0l-13 20l-1 14l2 8l10 23l10 14l25 27l14 5l2 -1l0 -3l-3 -8l9 -8l-2 -8l9 -7l-4 -33l-5 -14l-9 -14l-17 -18z\"/><path class=\"bm-region\" data-m=\"Butine\" data-v=\"back\" d=\"M917 463l-3 4l-2 14l-7 17l6 16l7 59l2 4l4 2l4 -6l4 -26l0 -34l-7 -40l-3 -7zM734 463l-3 0l-2 2l-4 9l-7 41l0 44l2 14l4 6l3 0l4 -7l5 -43l3 -15l6 -15l-6 -17l-2 -14z\"/><path class=\"bm-region\" data-m=\"Lo\u017ee\" data-v=\"back\" d=\"M834 496l-2 2l0 18l3 18l11 42l7 21l8 17l4 17l8 8l12 0l11 -6l8 -1l2 -2l4 0l6 4l3 0l2 -3l-1 -36l2 -15l-5 -7l-4 -42l-3 -17l-5 -15l-2 -1l-11 6l-21 6l-6 -3l-6 0l-9 -3zM816 496l-17 9l-17 3l-3 2l-16 -4l-15 -7l-3 1l-8 29l-5 43l-2 5l-4 4l2 16l-1 27l9 7l5 -1l3 2l6 0l8 3l4 4l12 1l10 -12l3 -13l11 -23l15 -51l6 -34l0 -7z\"/><path class=\"bm-region\" data-m=\"Gluteus\" data-v=\"back\" d=\"M747 389l-4 16l0 9l2 6l-11 38l0 4l4 6l2 14l7 16l16 7l16 4l3 -2l14 -2l20 -10l3 -6l5 -5l2 0l5 5l3 6l16 8l9 3l6 0l6 3l21 -6l13 -7l6 -15l2 -14l4 -7l-2 -12l-9 -27l2 -7l0 -9l-5 -17l-18 8l-3 3l-9 0l-5 -2l-19 9l-16 14l-7 3l-8 -2l-11 -11l-24 -13l-6 2l-9 0l-17 -11z\"/><path class=\"bm-region\" data-m=\"Listovi\" data-v=\"back\" d=\"M906 631l-2 2l-8 1l-11 6l-5 -1l-6 2l-1 17l-8 29l0 32l8 19l9 11l0 7l5 14l9 42l-1 23l35 1l1 -2l-4 -13l-1 -15l-3 -6l0 -6l9 -40l0 -12l5 -10l4 -15l1 -22l-6 -25l-17 -34l-9 -5zM729 626l-3 0l2 12l-18 32l-6 21l0 28l7 21l-1 8l6 40l-3 5l0 20l-6 17l1 6l35 -1l1 -22l5 -23l12 -33l1 -7l9 -11l7 -14l4 -21l-3 -27l-5 -18l0 -17l-3 -2l-9 0l-4 -4l-8 -3l-6 0l-3 -2l-5 1z\"/></svg>";
   function build(){
     const wrap=document.createElement('div');
     wrap.className='bm-wrap';
     wrap.id='zdv26-bodymap';
-    wrap.innerHTML =
-      '<div class="bm-toggle">'+
-        '<button data-view="front" class="on">Sprijeda</button>'+
-        '<button data-view="back">Straga</button>'+
-      '</div>'+
-      '<div class="bm-svgwrap">'+FRONT_SVG+BACK_SVG+'</div>'+
-      '<div class="bm-hint">Dodirni mišić za filtriranje</div>';
-    const svgs = wrap.querySelectorAll('svg');
-    svgs[1].style.display='none';
-    wrap.querySelectorAll('.bm-toggle button').forEach(function(btn){
-      btn.addEventListener('click', function(){
-        currentView = btn.dataset.view;
-        wrap.querySelectorAll('.bm-toggle button').forEach(function(b){b.classList.toggle('on', b===btn);});
-        svgs[0].style.display = currentView==='front' ? '' : 'none';
-        svgs[1].style.display = currentView==='back' ? '' : 'none';
-      });
-    });
-    wrap.querySelectorAll('.bm-region').forEach(function(region){
-      region.addEventListener('click', function(){
-        const muscle = region.getAttribute('data-m');
-        const select = document.querySelector('.kt-library-filters select.kt-picker-input');
-        if(!select) return;
-        const setter = Object.getOwnPropertyDescriptor(window.HTMLSelectElement.prototype,'value').set;
-        setter.call(select, muscle);
-        select.dispatchEvent(new Event('change', {bubbles:true}));
-      });
+    wrap.innerHTML='<div class="bm-svgwrap">'+SVG+'</div>'+
+      '<div class="bm-captions"><span>Sprijeda</span><span>Straga</span></div>'+
+      '<div class="bm-hint"></div>';
+    wrap.querySelector('svg').addEventListener('click', function(e){
+      const region = e.target.closest ? e.target.closest('.bm-region') : null;
+      if(!region) return;
+      const muscle = region.getAttribute('data-m');
+      const select = document.querySelector('.kt-library-filters select.kt-picker-input');
+      if(!select) return;
+      const next = (select.value === muscle) ? 'Sve' : muscle;   // ponovni dodir poništava filter
+      const setter = Object.getOwnPropertyDescriptor(window.HTMLSelectElement.prototype,'value').set;
+      setter.call(select, next);
+      select.dispatchEvent(new Event('change', {bubbles:true}));
     });
     return wrap;
   }
@@ -1111,9 +1100,19 @@ html,body,#root{background:var(--iron-black)!important}
     const bm = document.getElementById('zdv26-bodymap');
     if(!select || !bm) return;
     const val = select.value;
+    let any=false;
     bm.querySelectorAll('.bm-region').forEach(function(r){
-      r.classList.toggle('bm-active', r.getAttribute('data-m')===val);
+      const on = r.getAttribute('data-m')===val;
+      r.classList.toggle('bm-active', on);
+      if(on) any=true;
     });
+    const svg = bm.querySelector('svg');
+    if(svg) svg.classList.toggle('has-active', any);
+    const hint = bm.querySelector('.bm-hint');
+    if(hint){
+      const html = any ? 'Odabrano: <b>'+val+'</b> &middot; dodirni ponovno za poništiti' : 'Dodirni mišić za filtriranje';
+      if(hint.dataset.h !== html){ hint.dataset.h = html; hint.innerHTML = html; }   // samo kad se promijeni (inace MutationObserver petlja)
+    }
   }
   function ensureInjected(){
     const filters = document.querySelector('.kt-library-filters');
