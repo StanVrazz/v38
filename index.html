@@ -697,8 +697,9 @@ html,body,#root{background:var(--iron-black)!important}
   document.addEventListener('click',()=>setTimeout(sync,20),true);
 
   // Swipe on the app background/content. Interactive controls remain untouched.
+  // V50: the open exercise detail (#zdv23-exercise-modal) is excluded, its own swipe flips between exercises only.
   let sx=0,sy=0,tracking=false;
-  const blocked=t=>!!(t&&t.closest&&t.closest('#zdv9-bottom-nav,#zdv9-more,input,textarea,select,button,[contenteditable="true"]'));
+  const blocked=t=>!!(t&&t.closest&&t.closest('#zdv23-exercise-modal,#zdv9-bottom-nav,#zdv9-more,input,textarea,select,button,[contenteditable="true"]'));
   document.addEventListener('touchstart',e=>{
     if(!isMobile()||e.touches.length!==1||blocked(e.target))return;
     sx=e.touches[0].clientX; sy=e.touches[0].clientY; tracking=true;
